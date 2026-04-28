@@ -338,7 +338,7 @@ section {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2.5rem;
 }
 
@@ -631,4 +631,56 @@ section {
 .btn-modal:hover {
     background: #008cc9;
     transform: translateY(-2px);
+}
+
+/* --- Specialties --- */
+.specialties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.specialty-card {
+    background: var(--dark-lighter);
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.specialty-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    background: rgba(0, 159, 227, 0.05);
+    box-shadow: 0 15px 30px rgba(0, 159, 227, 0.1);
+}
+
+.specialty-card .icon-box {
+    margin-bottom: 1.5rem;
+    width: 50px;
+    height: 50px;
+}
+
+.specialty-card h4 {
+    font-size: 1.05rem;
+    color: var(--text-heading);
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .specialties-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1.5rem;
+    }
+    .specialty-card {
+        padding: 1.5rem 1rem;
+    }
+    .specialty-card h4 {
+        font-size: 0.95rem;
+    }
 }
