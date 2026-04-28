@@ -174,13 +174,13 @@
                 </div>
                 <form class="contact-form" id="contactForm">
                     <div class="form-group">
-                        <input type="text" placeholder="Nombre Completo" required>
+                        <input type="text" name="from_name" placeholder="Nombre Completo" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Email Corporativo" required>
+                        <input type="email" name="from_email" placeholder="Email Corporativo" required>
                     </div>
                     <div class="form-group">
-                        <textarea rows="4" placeholder="¿Cómo podemos ayudarle con su desarrollo químico?" required></textarea>
+                        <textarea name="message" rows="4" placeholder="¿Cómo podemos ayudarle con su desarrollo químico?" required></textarea>
                     </div>
                     <button type="submit" class="btn-submit">Enviar Consulta <i data-lucide="send"></i></button>
                 </form>
@@ -197,6 +197,9 @@
             </div>
         </div>
     </footer>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
         // Icons
@@ -220,21 +223,36 @@
             }
         });
 
+        // Inicializar EmailJS (El usuario debe poner su PUBLIC KEY aquí)
+        emailjs.init("TU_PUBLIC_KEY");
+
         // Form Submission
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = e.target.querySelector('button');
-            btn.innerHTML = 'Procesando Protocolo...';
+            const originalBtnContent = btn.innerHTML;
+            
+            btn.innerHTML = 'Enviando...';
             btn.disabled = true;
 
-            // La información se enviará a lesly@updm.mx
-            setTimeout(() => {
-                alert('Protocolo técnico enviado con éxito a nuestro centro de ingeniería. Un especialista se pondrá en contacto pronto.');
-                e.target.reset();
-                btn.innerHTML = 'Enviar Consulta <i data-lucide="send"></i>';
-                btn.disabled = false;
-                lucide.createIcons();
-            }, 1800);
+            // Reemplazar con los IDs de EmailJS
+            const serviceID = 'default_service';
+            const templateID = 'TU_TEMPLATE_ID';
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    alert('¡Protocolo técnico enviado con éxito! Un especialista se pondrá en contacto pronto.');
+                    this.reset();
+                    btn.innerHTML = originalBtnContent;
+                    btn.disabled = false;
+                    lucide.createIcons();
+                }, (error) => {
+                    alert('Hubo un error al enviar el formulario. Por favor intenta de nuevo.');
+                    console.error('EmailJS Error:', error);
+                    btn.innerHTML = originalBtnContent;
+                    btn.disabled = false;
+                    lucide.createIcons();
+                });
         });
     </script>
 </body>
