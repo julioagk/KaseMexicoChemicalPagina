@@ -223,8 +223,8 @@
             }
         });
 
-        // Inicializar EmailJS (El usuario debe poner su PUBLIC KEY aquí)
-        emailjs.init("TU_PUBLIC_KEY");
+        // Inicializar EmailJS
+        emailjs.init("7gFZCuW-kDgNKI2ad");
 
         // Form Submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
@@ -235,9 +235,9 @@
             btn.innerHTML = 'Enviando...';
             btn.disabled = true;
 
-            // Reemplazar con los IDs de EmailJS
-            const serviceID = 'default_service';
-            const templateID = 'TU_TEMPLATE_ID';
+            // IDs de EmailJS
+            const serviceID = 'service_uje6g5r';
+            const templateID = 'template_vo9lpo7';
 
             emailjs.sendForm(serviceID, templateID, this)
                 .then(() => {
