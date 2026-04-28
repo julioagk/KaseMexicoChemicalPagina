@@ -198,6 +198,18 @@
         </div>
     </footer>
 
+    <!-- Modal de Estado (Éxito/Error) -->
+    <div class="modal-overlay" id="statusModal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modalIcon">
+                <i data-lucide="check"></i>
+            </div>
+            <h3 id="modalTitle">¡Enviado con éxito!</h3>
+            <p id="modalMessage">Un especialista se pondrá en contacto pronto.</p>
+            <button class="btn-modal" onclick="closeModal()">Entendido</button>
+        </div>
+    </div>
+
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -226,6 +238,37 @@
         // Inicializar EmailJS
         emailjs.init("7gFZCuW-kDgNKI2ad");
 
+        // Funciones del Modal
+        const statusModal = document.getElementById('statusModal');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+
+        function showModal(isSuccess, title, message) {
+            if (isSuccess) {
+                modalIcon.className = 'modal-icon success';
+                modalIcon.innerHTML = '<i data-lucide="check"></i>';
+            } else {
+                modalIcon.className = 'modal-icon error';
+                modalIcon.innerHTML = '<i data-lucide="alert-circle"></i>';
+            }
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            statusModal.classList.add('active');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            statusModal.classList.remove('active');
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        statusModal.addEventListener('click', (e) => {
+            if (e.target === statusModal) {
+                closeModal();
+            }
+        });
+
         // Form Submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -241,13 +284,13 @@
 
             emailjs.sendForm(serviceID, templateID, this)
                 .then(() => {
-                    alert('¡Protocolo técnico enviado con éxito! Un especialista se pondrá en contacto pronto.');
+                    showModal(true, '¡Protocolo técnico enviado!', 'Un ingeniero especialista se pondrá en contacto con usted pronto.');
                     this.reset();
                     btn.innerHTML = originalBtnContent;
                     btn.disabled = false;
                     lucide.createIcons();
                 }, (error) => {
-                    alert('Hubo un error al enviar el formulario. Por favor intenta de nuevo.');
+                    showModal(false, 'Error al enviar', 'No se pudo enviar el protocolo. Por favor intente de nuevo más tarde.');
                     console.error('EmailJS Error:', error);
                     btn.innerHTML = originalBtnContent;
                     btn.disabled = false;
