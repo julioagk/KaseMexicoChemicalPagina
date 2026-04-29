@@ -355,40 +355,83 @@ section {
 }
 
 .service-card {
-    background: var(--dark-lighter);
-    border: 1px solid var(--border);
-    padding: 4rem 3rem;
-    border-radius: 12px;
-    transition: var(--transition);
+    background: linear-gradient(145deg, rgba(25, 35, 45, 0.4) 0%, rgba(15, 23, 31, 0.6) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 4rem 2.5rem;
+    border-radius: 20px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 100% 100%, rgba(0, 159, 227, 0.15) 0%, transparent 50%);
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.service-card:hover::before {
+    opacity: 1;
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary);
-    background: rgba(0, 159, 227, 0.05);
+    transform: translateY(-12px) scale(1.02);
+    border-color: rgba(0, 159, 227, 0.4);
+    background: linear-gradient(145deg, rgba(30, 42, 54, 0.5) 0%, rgba(19, 27, 35, 0.7) 100%);
+    box-shadow: 0 20px 40px rgba(0, 159, 227, 0.2), 
+                0 0 100px rgba(0, 159, 227, 0.05);
 }
 
 .icon-box {
-    width: 64px;
-    height: 64px;
-    background: rgba(0, 159, 227, 0.1);
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(0, 159, 227, 0.2) 0%, rgba(118, 188, 33, 0.15) 100%);
     color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
+    border-radius: 16px;
     margin-bottom: 2.5rem;
+    border: 1px solid rgba(0, 159, 227, 0.3);
+    transition: all 0.5s ease;
+}
+
+.service-card:hover .icon-box {
+    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 10px 20px rgba(0, 159, 227, 0.3);
 }
 
 .service-card h3 {
     font-size: 1.5rem;
     margin-bottom: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover h3 {
+    color: #fff;
 }
 
 .service-card p {
     color: var(--text-main);
     font-size: 0.95rem;
     opacity: 0.8;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover p {
+    opacity: 1;
 }
 
 /* --- Benefits --- */
@@ -654,34 +697,70 @@ section {
 }
 
 .specialty-card {
-    background: var(--dark-lighter);
-    border: 1px solid var(--border);
+    background: linear-gradient(145deg, rgba(25, 35, 45, 0.4) 0%, rgba(15, 23, 31, 0.6) 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 2.5rem 2rem;
-    border-radius: 12px;
-    transition: var(--transition);
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.specialty-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 100% 100%, rgba(0, 159, 227, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+.specialty-card:hover::before {
+    opacity: 1;
 }
 
 .specialty-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary);
-    background: rgba(0, 159, 227, 0.05);
-    box-shadow: 0 15px 30px rgba(0, 159, 227, 0.1);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(0, 159, 227, 0.3);
+    background: linear-gradient(145deg, rgba(30, 42, 54, 0.5) 0%, rgba(19, 27, 35, 0.7) 100%);
+    box-shadow: 0 15px 30px rgba(0, 159, 227, 0.15);
 }
 
 .specialty-card .icon-box {
     margin-bottom: 1.5rem;
     width: 50px;
     height: 50px;
+    background: rgba(0, 159, 227, 0.1);
+    border: 1px solid rgba(0, 159, 227, 0.2);
+    border-radius: 12px;
+    transition: all 0.4s ease;
+}
+
+.specialty-card:hover .icon-box {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 5px 15px rgba(0, 159, 227, 0.2);
 }
 
 .specialty-card h4 {
     font-size: 1.05rem;
     color: var(--text-heading);
     line-height: 1.4;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.specialty-card:hover h4 {
+    color: #fff;
 }
 
 @media (max-width: 768px) {
